@@ -6,8 +6,8 @@ import ZaloSDK
  * Please read the Capacitor iOS Plugin Development Guide
  * here: https://capacitorjs.com/docs/plugins/ios
  */
-@objc(ZaloAuthPlugin)
-public class ZaloAuthPlugin: CAPPlugin {
+@objc(ZaloAuthCapacitorPlugin)
+public class ZaloAuthCapacitorPlugin: CAPPlugin {
     func isEqual<T: Equatable>(type: T.Type, a: Any, b: Any) -> Bool {
         guard let a = a as? T, let b = b as? T else { return false }
         return a == b

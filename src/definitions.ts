@@ -1,6 +1,6 @@
 declare module '@capacitor/core' {
   interface PluginRegistry {
-    ZaloAuthPlugin: ZaloAuthPluginPlugin;
+    ZaloAuthCapacitorPlugin: ZaloAuthCapacitorPluginPlugin;
   }
 }
 
@@ -27,7 +27,7 @@ export interface UserProfile extends Errorable {
   readonly avatar?: string;
 }
 
-export interface ZaloAuthPluginPlugin {
+export interface ZaloAuthCapacitorPluginPlugin {
   login(): Promise<LoginResponse>;
   getUserProfile(): Promise<UserProfile>;
   logout(): Promise<void>;

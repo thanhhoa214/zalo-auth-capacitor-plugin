@@ -1,12 +1,12 @@
 import { WebPlugin } from '@capacitor/core';
-import { ZaloAuthPluginPlugin } from './definitions';
+import { ZaloAuthCapacitorPluginPlugin } from './definitions';
 
-export class ZaloAuthPluginWeb
+export class ZaloAuthCapacitorPluginWeb
   extends WebPlugin
-  implements ZaloAuthPluginPlugin {
+  implements ZaloAuthCapacitorPluginPlugin {
   constructor() {
     super({
-      name: 'ZaloAuthPlugin',
+      name: 'ZaloAuthCapacitorPlugin',
       platforms: ['web'],
     });
   }
@@ -30,9 +30,9 @@ export class ZaloAuthPluginWeb
   }
 }
 
-const ZaloAuthPlugin = new ZaloAuthPluginWeb();
+const ZaloAuthCapacitorPlugin = new ZaloAuthCapacitorPluginWeb();
 
-export { ZaloAuthPlugin };
+export { ZaloAuthCapacitorPlugin };
 
 import { registerWebPlugin } from '@capacitor/core';
-registerWebPlugin(ZaloAuthPlugin);
+registerWebPlugin(ZaloAuthCapacitorPlugin);
