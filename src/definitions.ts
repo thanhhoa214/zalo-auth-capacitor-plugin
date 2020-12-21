@@ -19,11 +19,8 @@ export interface UserProfile extends Errorable {
   readonly success: boolean;
   readonly id: string;
   readonly name: string;
-  readonly firstName?: string;
-  readonly lastName?: string;
   readonly gender?: string;
   readonly birthday?: string;
-  readonly phone?: string;
   readonly avatar?: string;
 }
 
