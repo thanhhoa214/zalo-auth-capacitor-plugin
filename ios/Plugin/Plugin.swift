@@ -22,7 +22,7 @@ public class ZaloAuthCapacitorPlugin: CAPPlugin {
                 if ((response?.isSucess) != nil) {
                     call.success([
                         "success": true,
-                        "token": response?.oauthCode ?? ""
+                        "oauthCode": response?.oauthCode ?? ""
                     ])
                 } else  {
                     call.success([
@@ -43,11 +43,16 @@ public class ZaloAuthCapacitorPlugin: CAPPlugin {
                 guard let pictureData = response?.data["picture"] as? [String: [String: String]] else { return }
 
                 call.success([
+                    "success": true,
                     "id": response?.data["id"] ?? "",
                     "name": response?.data["name"] ?? "",
                     "gender": response?.data["gender"] ?? "",
                     "birthday": response?.data["birthday"] ?? "",
-                    "avatar": pictureData["data"]?["url"] ?? "",
+                    "picture": [
+                        "data": [
+                            "url": pictureData["data"]?["url"] ?? ""
+                        ]
+                    ],
                 ])
                 
             } else {

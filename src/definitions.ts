@@ -12,7 +12,7 @@ export interface Errorable {
 }
 export interface LoginResponse extends Errorable {
   readonly success: boolean;
-  readonly token?: string;
+  readonly oauthCode?: string;
 }
 
 export interface UserProfile extends Errorable {

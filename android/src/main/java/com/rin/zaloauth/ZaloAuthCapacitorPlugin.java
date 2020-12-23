@@ -10,7 +10,6 @@ import com.zing.zalo.zalosdk.oauth.OAuthCompleteListener;
 import com.zing.zalo.zalosdk.oauth.OauthResponse;
 import com.zing.zalo.zalosdk.oauth.ZaloOpenAPICallback;
 import com.zing.zalo.zalosdk.oauth.ZaloSDK;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -31,7 +30,7 @@ public class ZaloAuthCapacitorPlugin extends Plugin {
             public void onGetOAuthComplete(OauthResponse response) {
                 String code = response.getOauthCode();
                 ret.put("success", true);
-                ret.put("token", code);
+                ret.put("oauthCode", code);
                 call.success(ret);
             }
         };
@@ -40,26 +39,30 @@ public class ZaloAuthCapacitorPlugin extends Plugin {
 
     @PluginMethod
     public void getUserProfile(final PluginCall call) {
-        final String[] fields = {"id", "birthday", "gender", "picture", "name"};
-        ZaloSDK.Instance.getProfile(this.getContext(), new ZaloOpenAPICallback() {
-            @Override
-            public void onResult(JSONObject jsonObject) {
-                JSObject ret = new JSObject();
-                try {
-                    ret.put("success", true);
-                    ret.put("id", jsonObject.get("id"));
-                    ret.put("birthday", jsonObject.get("birthday"));
-                    ret.put("gender", jsonObject.get("gender"));
-                    ret.put("picture", jsonObject.getJSONObject("picture").getJSONObject("data").get("url"));
-                    ret.put("name", jsonObject.get("name"));
-                    call.success(ret);
-                } catch (JSONException e) {
-                    ret.put("success", false);
-                    call.success(ret);
-                    e.printStackTrace();
+        final String[] fields = { "id", "birthday", "gender", "picture", "name" };
+        ZaloSDK.Instance.getProfile(
+            this.getContext(),
+            new ZaloOpenAPICallback() {
+                @Override
+                public void onResult(JSONObject jsonObject) {
+                    JSObject ret = new JSObject();
+                    try {
+                        ret.put("success", true);
+                        ret.put("id", jsonObject.get("id"));
+                        ret.put("birthday", jsonObject.get("birthday"));
+                        ret.put("gender", jsonObject.get("gender"));
+                        ret.put("picture", jsonObject.getJSONObject("picture").getJSONObject("data").get("url"));
+                        ret.put("name", jsonObject.get("name"));
+                        call.success(ret);
+                    } catch (JSONException e) {
+                        ret.put("success", false);
+                        call.success(ret);
+                        e.printStackTrace();
+                    }
                 }
-            }
-        }, fields);
+            },
+            fields
+        );
     }
 
     @PluginMethod
@@ -72,6 +75,7 @@ public class ZaloAuthCapacitorPlugin extends Plugin {
 }
 
 class ErrorType {
+
     private String code;
     private String message;
 
