@@ -68,5 +68,8 @@ public class ZaloAuthCapacitorPlugin: CAPPlugin {
     }
     @objc func logout(_ call: CAPPluginCall) {
         ZaloSDK.sharedInstance()?.unauthenticate()
+        call.success([
+            "success": true,
+        ])
     }
 }
