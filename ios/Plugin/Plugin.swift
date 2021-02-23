@@ -72,21 +72,37 @@ public class ZaloAuthCapacitorPlugin: CAPPlugin {
             "success": true,
         ])
     }
-    @objc func share(_ call: CAPPluginCall) {
-        ZOFeed * feed = ZOFeed.init();
-        feed.message = call?.data["input"]?["message"]
-        feed.appName = call?.data["input"]?["appName"]
-        feed.link = call?.data["input"]?["link"]
-         
-        ZaloSDK.sharedInstance()?.shareFeedOrSendMessage(feed, in: self.bridge.viewController, callback: {
-            response in
-            if((response?.isSucess) != nil) {
-                call.success([
-                    "success": true,
-                ])
-            }
-                
-        })
+     
+      @objc func share(_ call: CAPPluginCall) {
+        let feed = ZOFeed.init();
+        feed.setValue(call.getString("appName", ""), forKey: "appName")
+        feed.setValue(call.getString("message", ""), forKey: "message")
+        feed.setValue(call.getString("link", ""), forKey: "link")
+        feed.linkSource=call.getString("link", "");
+        feed.linkTitle=call.getString("title", "");
+        feed.linkThumb = [call.getString("thumbnailUrl", "") ?? ""];
+        feed.setValue(call.getString("description", ""), forKey: "linkDesc")
         
+        if (call.getString("type") == "message"){
+            ZaloSDK.sharedInstance()?.sendMessage(feed, in: self.bridge.viewController, callback: {
+                response in
+                if((response?.isSucess) != nil) {
+                    call.success([
+                        "success": true,
+                    ])
+                }
+            })
+        }
+        if (call.getString("type") == "wall"){
+            ZaloSDK.sharedInstance()?.share(feed, in: self.bridge.viewController, callback: {
+                response in
+                if((response?.isSucess) != nil) {
+                    call.success([
+                        "success": true,
+                    ])
+                }
+                    
+            })
+        }
     }
 }

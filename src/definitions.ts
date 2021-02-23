@@ -28,11 +28,12 @@ export interface UserProfile extends Errorable {
 }
 
 export interface ShareInput {
-  title?: string /** Android only */;
+  title?: string;
   message?: string;
   link?: string;
-  thumbnailUrl?: string /** Android only */;
-  appName?: string /** iOS only */;
+  thumbnailUrl?: string;
+  appName?: string;
+  type: 'message' | 'wall';
 }
 
 export interface ZaloAuthCapacitorPluginPlugin {

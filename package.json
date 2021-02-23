@@ -1,6 +1,6 @@
 {
   "name": "zalo-auth-capacitor-plugin",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "Authenticate by Zalo through Capacitor",
   "main": "dist/plugin.js",
   "module": "dist/esm/index.js",

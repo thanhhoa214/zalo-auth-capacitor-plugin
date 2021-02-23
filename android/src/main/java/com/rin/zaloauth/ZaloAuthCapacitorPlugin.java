@@ -78,22 +78,44 @@ public class ZaloAuthCapacitorPlugin extends Plugin {
 
     @PluginMethod
     public void share(final PluginCall call) {
-        JSObject input = call.getData().getJSObject("input");
-
-        FeedData feed = new FeedData();
+        JSObject input = call.getData();
+        final FeedData feed = new FeedData();
+        feed.setAppName(input.getString("appName"));
         feed.setMsg(input.getString("message"));
         feed.setLink(input.getString("link"));
         feed.setLinkTitle(input.getString("title"));
         feed.setLinkSource(input.getString("link"));
-        feed.setLinkThumb(new String[] {input.getString("thumbnailUrl")});
-        OpenAPIService.getInstance().shareFeed(this.getContext(), feed, new ZaloPluginCallback() {
-            @Override
-            public void onResult(boolean b, int i, String s, String s1) {
-                JSObject ret = new JSObject();
-                ret.put("success", true);
-                call.success(ret);
-            }
-        });
+        feed.setLinkThumb(new String[] { input.getString("thumbnailUrl") });
+        if (input.getString("type").equals("message")) {
+            new OpenAPIService()
+            .shareMessage(
+                    this.getContext(),
+                    feed,
+                    new ZaloPluginCallback() {
+                        @Override
+                        public void onResult(boolean b, int i, String s, String s1) {
+                            JSObject ret = new JSObject();
+                            ret.put("success", true);
+                            call.success(ret);
+                        }
+                    }
+                );
+        }
+        if (input.getString("type").equals("wall")) {
+            new OpenAPIService()
+            .shareFeed(
+                    this.getContext(),
+                    feed,
+                    new ZaloPluginCallback() {
+                        @Override
+                        public void onResult(boolean b, int i, String s, String s1) {
+                            JSObject ret = new JSObject();
+                            ret.put("success", true);
+                            call.success(ret);
+                        }
+                    }
+                );
+        }
     }
 }
 
