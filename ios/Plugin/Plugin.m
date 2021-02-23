@@ -7,4 +7,5 @@ CAP_PLUGIN(ZaloAuthCapacitorPlugin, "ZaloAuthCapacitorPlugin",
            CAP_PLUGIN_METHOD(login, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(getUserProfile, CAPPluginReturnPromise);
            CAP_PLUGIN_METHOD(logout, CAPPluginReturnPromise);
+           CAP_PLUGIN_METHOD(share, CAPPluginReturnPromise);
 )

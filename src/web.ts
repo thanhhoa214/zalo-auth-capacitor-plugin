@@ -28,6 +28,10 @@ export class ZaloAuthCapacitorPluginWeb
   async logout() {
     console.log('[logout] Web version is not supported');
   }
+  async share() {
+    console.log('[share] Web version is not supported');
+    return { success: false };
+  }
 }
 
 const ZaloAuthCapacitorPlugin = new ZaloAuthCapacitorPluginWeb();

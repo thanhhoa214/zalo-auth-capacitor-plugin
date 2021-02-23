@@ -14,6 +14,9 @@ export interface LoginResponse extends Errorable {
   readonly success: boolean;
   readonly oauthCode?: string;
 }
+export interface ShareResponse extends Errorable {
+  readonly success: boolean;
+}
 
 export interface UserProfile extends Errorable {
   readonly success: boolean;
@@ -24,8 +27,17 @@ export interface UserProfile extends Errorable {
   readonly avatar?: string;
 }
 
+export interface ShareInput {
+  title?: string /** Android only */;
+  message?: string;
+  link?: string;
+  thumbnailUrl?: string /** Android only */;
+  appName?: string /** iOS only */;
+}
+
 export interface ZaloAuthCapacitorPluginPlugin {
   login(): Promise<LoginResponse>;
   getUserProfile(): Promise<UserProfile>;
   logout(): Promise<void>;
+  share(input: ShareInput): Promise<ShareResponse>;
 }

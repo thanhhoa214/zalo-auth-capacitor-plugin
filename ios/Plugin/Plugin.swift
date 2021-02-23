@@ -72,4 +72,21 @@ public class ZaloAuthCapacitorPlugin: CAPPlugin {
             "success": true,
         ])
     }
+    @objc func share(_ call: CAPPluginCall) {
+        ZOFeed * feed = ZOFeed.init();
+        feed.message = call?.data["input"]?["message"]
+        feed.appName = call?.data["input"]?["appName"]
+        feed.link = call?.data["input"]?["link"]
+         
+        ZaloSDK.sharedInstance()?.shareFeedOrSendMessage(feed, in: self.bridge.viewController, callback: {
+            response in
+            if((response?.isSucess) != nil) {
+                call.success([
+                    "success": true,
+                ])
+            }
+                
+        })
+        
+    }
 }
