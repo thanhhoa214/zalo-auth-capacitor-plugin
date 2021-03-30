@@ -18,7 +18,7 @@ npx cap sync
 ### 1. iOS:
 #### 1. In `ios/App/Podfile`:
 Inside `target 'App'`, append:
-```
+```pod
 target 'App' do
   capacitor_pods
   # Add your Pods here
@@ -29,7 +29,7 @@ end
 ```
 #### 2. In `ios/App/App/AppDelegate.swift`:
 1. Add to import list:
-```
+```swift
 import ZaloSDK
 ```
 2. Inside `AppDelegate` class, take changes in 2 methods below:
@@ -57,7 +57,7 @@ import ZaloSDK
 
 #### 2. In `ios/App/App/Info.plist`:
 Append or fill out these lines:
-```plist
+```xml
 ...
 <key>CFBundleURLTypes</key>
 <array>
@@ -82,7 +82,7 @@ Append or fill out these lines:
 #### 1. In `android/src/build.gradle`:
 Inside `dependencies { ... }`, append:
 
-```
+```java
 implementation "com.zing.zalo.zalosdk:core:+"
 implementation "com.zing.zalo.zalosdk:auth:+"
 implementation "com.zing.zalo.zalosdk:openapi:+"
@@ -91,20 +91,20 @@ implementation "com.zing.zalo.zalosdk:openapi:+"
 
 #### 2. In `android/src/main/java/..../MainActivity.java`:
 1. Import class.
-    ```
+    ```java
     import com.zing.zalo.zalosdk.oauth.ZaloSDK;
     ```
 2. In the callback of `this.init(savedInstanceState, ....), append:
-    ```
+    ```java
     add(com.rin.zaloauth.ZaloAuthCapacitorPlugin.class);
     ```
 3. In `onActivityResult` method, under `super.onActivityResult(requestCode, resultCode, data);` append:
-    ```
+    ```java
     ZaloSDK.Instance.onActivityResult(this, requestCode, resultCode, data);
     ```
 #### 3. In `android/src/main/res/values/strings.xml`:
 Inside `resources`, create Zalo App on [Zalo Developer](https://developers.zalo.me/), get back `APP_ID` (may be similar `42735613396xxxx150`):
-```
+```xml
 <resources>
     ...
     <string name="zalo_app_id">APP_ID_FROM_ZALO_DEVELOPER</string>
@@ -114,7 +114,7 @@ Inside `resources`, create Zalo App on [Zalo Developer](https://developers.zalo.
 ```
 #### 4. In `android/src/main/AndroidManifest.xml`:
 1. Add `name` attribute to your application.
-```
+```xml
 <application
     android:name="com.zing.zalo.zalosdk.oauth.ZaloSDKApplication"
     ...
@@ -141,7 +141,7 @@ Inside `resources`, create Zalo App on [Zalo Developer](https://developers.zalo.
 
 #### 5. Create Zalo Service for using in your application: (web has not implemented yet)
 
-```
+```typescript
 import { Injectable } from '@angular/core';
 import { Plugins } from '@capacitor/core';
 import { isPlatform } from '@ionic/angular';
@@ -167,12 +167,10 @@ export class LoginZaloService {
   logout() {
     return this._zaloLogin.logout();
   }
-
   share(input: ShareInput) {
     return this._zaloLogin.share(input);
   }
-
-  private async _setupZaloLogin() {
+  private _setupZaloLogin() {
     if (isPlatform('desktop')) {
       this._zaloLogin = ZaloAuthCapacitorPlugin;
     } else {
@@ -180,7 +178,6 @@ export class LoginZaloService {
     }
   }
 }
-
 ```
 
 
