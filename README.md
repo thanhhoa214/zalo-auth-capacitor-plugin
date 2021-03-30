@@ -1,7 +1,11 @@
 # zalo-auth-capacitor-plugin
 Zalo Authenticate through CapacitorJS
 
-Currently, I just publish for personal use.
+Currently, I don't plan for maintainance. Instead, mail to me (thanhthanhhoa123@gmail.com) if need any help. Thanks for using my plugins!
+### 🎉 Happy to check your Pull Request at anytime.
+
+<br/>
+<br/>
 
 ## Installation:
 ```bash
@@ -12,6 +16,66 @@ npx cap sync
 ## Configuration:
 
 ### 1. iOS:
+#### 1. In `ios/App/Podfile`:
+Inside `target 'App'`, append:
+```
+target 'App' do
+  capacitor_pods
+  # Add your Pods here
+  ...
+  pod 'ZaloSDK'
+  ...
+end
+```
+#### 2. In `ios/App/App/AppDelegate.swift`:
+1. Add to import list:
+```
+import ZaloSDK
+```
+2. Inside `AppDelegate` class, take changes in 2 methods below:
+```swift
+  func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+    ...
+    ZaloSDK.sharedInstance()?.initialize(withAppId: "APP_ID_FROM_ZALO_DEVELOPER");
+    ...
+    return true
+  }
+```
+
+```swift
+  func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+    ...
+    if CAPBridge.handleOpenUrl(url, options) {
+      if url.absoluteString.hasPrefix("zalo-APP_ID_FROM_ZALO_DEVELOPER") {
+        return ((ZDKApplicationDelegate.sharedInstance()?.application(app, open: url, options: options)) != nil);
+      }
+    }
+    ...
+    return false;
+  }
+```
+
+#### 2. In `ios/App/App/Info.plist`:
+Append or fill out these lines:
+```plist
+...
+<key>CFBundleURLTypes</key>
+<array>
+  ...
+  <dict>
+    <key>CFBundleTypeRole</key>
+    <string>Editor</string>
+    <key>CFBundleURLName</key>
+    <string>zalo</string>
+    <key>CFBundleURLSchemes</key>
+    <array>
+      <string>zalo-APP_ID_FROM_ZALO_DEVELOPER</string>
+    </array>
+  </dict>
+  ...
+</array>
+...
+```
 
 ### 2. Android:
 
@@ -120,5 +184,3 @@ export class LoginZaloService {
 ```
 
 
-
-### 🎉 Happy to check your Pull Request at anytime.
