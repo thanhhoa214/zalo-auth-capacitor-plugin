@@ -179,5 +179,20 @@ export class LoginZaloService {
   }
 }
 ```
+### 3. Web
 
+#### 1. Register Callback URL in https://deverloper.zalo.me/app/YourAppID/login
 
+#### 2. Set up URL Login with Zalo in Login page
+```javascript
+appID = '*********************';
+redirectURI = `Your Callback URL`;
+zaloLogin = `https://oauth.zaloapp.com/v3/permission?app_id=${appID}&redirect_uri=${redirectURI}&state=${anything}`
+```
+#### 3. Set up page Redirect
+```javascript
+const url = new URL(getURL);
+const uid = url.searchParams.get("uid"); //ID of user
+const code = url.searchParams.get("code"); //OAuthCode
+const state = url.searchParams.get("state"); //state in step 2
+```
